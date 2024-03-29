@@ -1,24 +1,23 @@
 ﻿using Infrastructure.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using WebbApp.ViewModels;
 
 namespace WebbApp.Controllers;
 
-public class AccountController : Controller
+public class AccountController(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager) : Controller
 {
-    private readonly UserManager<UserEntity> _userManager;
+    private readonly UserManager<UserEntity> _userManager = userManager;
+    private readonly SignInManager<UserEntity> _signInManager = signInManager;
 
-	public AccountController(UserManager<UserEntity> userManager)
-	{
-		_userManager = userManager;
-	}
-
-	[HttpGet]
-    public IActionResult SignUp()
+    [HttpGet]
+	[Route("/signup")]
+	public IActionResult SignUp()
     {
+        if (_signInManager.IsSignedIn(User))
+            return RedirectToAction("Details", "Account");
+
         return View();
     }
 
@@ -33,6 +32,7 @@ public class AccountController : Controller
             if (exists)
             {
                 ModelState.AddModelError("AlreadyExists", "User with the same email address already exists");
+                ViewData["ErrorMessage"] = "User with the same email address already exists";
                 return View(viewModel);
             }
 
@@ -53,6 +53,40 @@ public class AccountController : Controller
 
         return View(viewModel);
     }
+
+
+    [HttpGet]
+    [Route("/signin")]
+    public IActionResult SignIn()
+    {
+        if (_signInManager.IsSignedIn(User))
+            return RedirectToAction("Details", "Account");
+
+        return View();
+    }
+
+
+	[HttpPost]
+	[Route("/signin")]
+	public async Task<IActionResult> SignIn(SignInViewModel viewModel)
+	{
+        if (ModelState.IsValid)
+        {
+            var result = await _signInManager.PasswordSignInAsync(viewModel.Email, viewModel.Password, viewModel.RememberMe, false);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Courses");
+            }
+        }
+		ModelState.AddModelError("Incorrect values", "Incorrect email or password");
+		ViewData["ErrorMessage"] = "Incorrect email or password";
+
+		return View(viewModel);
+	}
+
+
+
+
 
 
 }
