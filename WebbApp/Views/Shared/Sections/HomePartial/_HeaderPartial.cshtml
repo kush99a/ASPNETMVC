@@ -1,9 +1,22 @@
-﻿<Header>
+﻿@inject SignInManager<UserEntity> _signInManager
+
+<Header>
     <img src="~/Image/solid.svg" alt="siliconloggo">
     <nav class="options">
-        <a href="#">Overview</a>
-        <a href="#">Features</a>
-        <a href="#">Contact</a>
+        
+        @if (_signInManager.IsSignedIn(User))
+        {
+            <a href="#">Overview</a>
+            <a href="#">Features</a>
+            <a href="#">Contact</a>
+            <a asp-action="Index" asp-controller="Courses">Coureses</a>
+        }
+        else
+        {
+            <a href="#">Overview</a>
+            <a href="#">Features</a>
+            <a href="#">Contact</a>
+        }
 
     </nav>
 
@@ -17,18 +30,35 @@
     </div>
 
     <div class="signButtons">
+        @if (_signInManager.IsSignedIn(User))
+        {
+            <nav class="signIn">
+                <a asp-controller="Account" asp-action="SignOut">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i>Sign Out
+                </a>
+            </nav>
 
-        <nav class="signIn">
-            <a asp-controller="Account" asp-action="SignIn">
-                <i class="fa-solid fa-arrow-right-to-bracket"></i>Sign in
-            </a>
-        </nav>
+            <nav class="signUp">
+                <a asp-controller="AccountDetails" asp-action="Index">
+                    <i class="fa-solid fa-user-plus"></i>My account
+                </a>
+            </nav>
+        }
+        else
+        {
+            <nav class="signIn">
+                <a asp-controller="Account" asp-action="SignIn">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i>Sign in
+                </a>
+            </nav>
 
-        <nav class="signUp">
-            <a asp-controller="Account" asp-action="SignUp">
-                <i class="fa-solid fa-user-plus"></i>Sign up
-            </a>
-        </nav>
+            <nav class="signUp">
+                <a asp-controller="Account" asp-action="SignUp">
+                    <i class="fa-solid fa-user-plus"></i>Sign up
+                </a>
+            </nav>
+        }
+        
 
     </div>
 </Header>

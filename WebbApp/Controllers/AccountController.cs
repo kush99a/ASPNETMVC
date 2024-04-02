@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Entities;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,7 @@ public class AccountController(UserManager<UserEntity> userManager, SignInManage
 	public IActionResult SignUp()
     {
         if (_signInManager.IsSignedIn(User))
-            return RedirectToAction("Details", "Account");
+            return RedirectToAction("Index", "AccountDetails");
 
         return View();
     }
@@ -60,7 +61,7 @@ public class AccountController(UserManager<UserEntity> userManager, SignInManage
     public IActionResult SignIn()
     {
         if (_signInManager.IsSignedIn(User))
-            return RedirectToAction("Details", "Account");
+            return RedirectToAction("Index", "Home");
 
         return View();
     }
@@ -75,7 +76,7 @@ public class AccountController(UserManager<UserEntity> userManager, SignInManage
             var result = await _signInManager.PasswordSignInAsync(viewModel.Email, viewModel.Password, viewModel.RememberMe, false);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Courses");
+                return RedirectToAction("Index", "Home");
             }
         }
 		ModelState.AddModelError("Incorrect values", "Incorrect email or password");
@@ -85,6 +86,14 @@ public class AccountController(UserManager<UserEntity> userManager, SignInManage
 	}
 
 
+	[HttpGet]
+	[Route("/signout")]
+	public new async Task<IActionResult> SignOut()
+	{
+        await _signInManager.SignOutAsync();
+
+		return RedirectToAction("Index", "Home");
+	}
 
 
 

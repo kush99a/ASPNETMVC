@@ -354,6 +354,12 @@ main {
             .adressLine1 {
                 margin-top: 40px;
 
+                .input-validation-error {
+                    background-color: #f8dcdc;
+                    border: 1px solid;
+                    border-color: red;
+                }
+
                 input {
                     padding: 10px 178px;
                 }
@@ -375,7 +381,15 @@ main {
                 display: flex;
                 gap: 40px;
 
+
+
                 .postalCode, .city {
+                    .input-validation-error {
+                        background-color: #f8dcdc;
+                        border: 1px solid;
+                        border-color: red;
+                    }
+
                     input {
                         padding: 5px 30px;
                     }

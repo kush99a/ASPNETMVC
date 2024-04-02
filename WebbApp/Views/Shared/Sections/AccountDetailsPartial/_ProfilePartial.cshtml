@@ -1,0 +1,148 @@
+﻿@using WebbApp.ViewModels.AccountDetails
+@model AccountDetailsViewModel
+
+@{
+    ViewData["Title"] = $"{Model.BasicInfoForm.FirstName} {Model.BasicInfoForm.LastName}";
+}
+
+<div class="profile">
+    <div class="profilePicture">
+        <div class="profile-pic">
+            <label class="-label" for="file">
+                <span class="glyphicon glyphicon-camera"></span>
+                <span>Change Image</span>
+            </label>
+            <input id="file" type="file" onchange="loadFile(event)" />
+            <img src="/Image/noProfilePictureIcon.svg" alt="">
+
+
+
+        </div>
+        <div class="profileButton">
+
+            <p><strong>@Model.BasicInfoForm.FirstName @Model.BasicInfoForm.LastName</strong></p>
+            <p>@Model.BasicInfoForm.Email</p>
+
+
+
+            <nav class="accountDetailsButton">
+                <a href="#"><i class="fa-solid fa-gear"></i>Account Details</a>
+            </nav>
+            <nav class="signOutButton">
+                <a asp-action="SignOut" asp-controller="Account"><i class="fa-solid fa-arrow-right-from-bracket"></i>Sign Out</a>
+            </nav>
+
+        </div>
+
+        
+
+    </div>
+
+
+    <div class="accountDetailsMain">
+
+        <form method="Post" asp-action="SaveBasicInfo" asp-controller="AccountDetails" novalidate>
+
+
+            <div class="accountDetailsHeader">
+                <h2><strong>Account Details</strong></h2>
+
+                <p><strong>Basic Info</strong></p>
+            </div>
+
+            <div class="firstNameLastname">
+                <div class="firstName input-validation-error">
+                    <p><strong>FirstName</strong></p>
+                    <input asp-for=BasicInfoForm.FirstName  placeholder="Firstname">
+                </div>
+
+                <div class="lastName input-validation-error">
+                    <p><strong>LastName</strong></p>
+                    <input asp-for=BasicInfoForm.LastName placeholder="Lastname">
+                </div>
+            </div>
+
+            <div class="emailAddressPhoneNumber">
+                <div class="emailAddress input-validation-error">
+                    <p><strong>Email Address</strong></p>
+                    <input asp-for=BasicInfoForm.Email placeholder="Email">
+                </div>
+
+                <div class="phoneNumber">
+                    <p><strong>Phone Number</strong></p>
+                    <input asp-for=BasicInfoForm.PhoneNumber placeholder="PhoneNumber">
+                </div>
+
+            </div>
+
+            <div class="accountDetailsBio">
+                <p><strong>Bio</strong></p>
+                <input asp-for=BasicInfoForm.Biography placeholder="Add a short bio...">
+            </div>
+
+            <div class="accountDetailsButtons">
+                <nav class="cancel">
+                    <button type="Reset">Cancel</button>
+                </nav>
+
+                <nav class="saveChanges">
+                    <button type="Submit">Save Changes</button>
+                </nav>
+
+            </div>
+
+        </form>
+
+
+        <form method="post" asp-action="SaveAddressInfo" asp-controller="AccountDetails" novalidate>
+            <div class="adressHeader">
+                <hr>
+                <p><strong>Address</strong></p>
+            </div>
+
+            <div class="adressLine1">
+                <p><strong>Address line 1</strong></p>
+                <input asp-for=AddressInfoForm.AddressLine_1 placeholder="Enter your address line">
+            </div>
+
+            <div class="addressLine2">
+                <p><strong>Address line 2</strong></p>
+                <input asp-for=AddressInfoForm.AddressLine_2 placeholder="Enter your 2 address line">
+            </div>
+
+
+            <div class="postalCodeCity">
+                <div class="postalCode">
+                    <p><strong>Postal Code</strong></p>
+                    <input asp-for=AddressInfoForm.PostalCode placeholder="Enter your postal code">
+                </div>
+
+                <div class="city">
+                    <p><strong>City</strong></p>
+                    <input asp-for=AddressInfoForm.City placeholder="Enter your city">
+                </div>
+
+
+
+            </div>
+
+
+            <div class="postalCodeCityButtons">
+                <nav class="cancel2">
+                    <button type="Reset">Cancel</button>
+                </nav>
+
+                <nav class="saveChanges2">
+                    <button type="Submit"> Save Changes</button>
+                </nav>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+
+
+</div>

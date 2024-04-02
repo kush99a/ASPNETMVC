@@ -1378,6 +1378,11 @@ main .profile .accountDetailsMain .adressHeader p {
 main .profile .accountDetailsMain .adressLine1 {
   margin-top: 40px;
 }
+main .profile .accountDetailsMain .adressLine1 .input-validation-error {
+  background-color: #f8dcdc;
+  border: 1px solid;
+  border-color: red;
+}
 main .profile .accountDetailsMain .adressLine1 input {
   padding: 10px 178px;
 }
@@ -1391,6 +1396,11 @@ main .profile .accountDetailsMain .postalCodeCity {
   margin-top: 40px;
   display: flex;
   gap: 40px;
+}
+main .profile .accountDetailsMain .postalCodeCity .postalCode .input-validation-error, main .profile .accountDetailsMain .postalCodeCity .city .input-validation-error {
+  background-color: #f8dcdc;
+  border: 1px solid;
+  border-color: red;
 }
 main .profile .accountDetailsMain .postalCodeCity .postalCode input, main .profile .accountDetailsMain .postalCodeCity .city input {
   padding: 5px 30px;
