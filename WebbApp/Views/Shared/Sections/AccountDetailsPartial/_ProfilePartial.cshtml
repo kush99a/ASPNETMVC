@@ -1,8 +1,7 @@
 ﻿@using WebbApp.ViewModels.AccountDetails
 @model AccountDetailsViewModel
-
 @{
-    ViewData["Title"] = $"{Model.BasicInfoForm.FirstName} {Model.BasicInfoForm.LastName}";
+    ViewData["Title"] = $"{Model.ProfileInfo.FirstName} {Model.ProfileInfo.LastName}";
 }
 
 <div class="profile">
@@ -20,8 +19,8 @@
         </div>
         <div class="profileButton">
 
-            <p><strong>@Model.BasicInfoForm.FirstName @Model.BasicInfoForm.LastName</strong></p>
-            <p>@Model.BasicInfoForm.Email</p>
+            <p><strong>@Model.ProfileInfo.FirstName @Model.ProfileInfo.LastName</strong></p>
+            <p>@Model.ProfileInfo.Email</p>
 
 
 
@@ -41,7 +40,7 @@
 
     <div class="accountDetailsMain">
 
-        <form method="Post" asp-action="SaveBasicInfo" asp-controller="AccountDetails" novalidate>
+        <form method="Post" asp-action="Index" asp-controller="AccountDetails" novalidate>
 
 
             <div class="accountDetailsHeader">
@@ -94,13 +93,13 @@
         </form>
 
 
-        <form method="post" asp-action="SaveAddressInfo" asp-controller="AccountDetails" novalidate>
+        <form method="post" asp-action="Index" asp-controller="AccountDetails" novalidate>
             <div class="adressHeader">
                 <hr>
                 <p><strong>Address</strong></p>
             </div>
 
-            <div class="adressLine1">
+            <div class="adressLine1 input-validation-error">
                 <p><strong>Address line 1</strong></p>
                 <input asp-for=AddressInfoForm.AddressLine_1 placeholder="Enter your address line">
             </div>
@@ -111,13 +110,13 @@
             </div>
 
 
-            <div class="postalCodeCity">
+            <div class="postalCodeCity input-validation-error">
                 <div class="postalCode">
                     <p><strong>Postal Code</strong></p>
                     <input asp-for=AddressInfoForm.PostalCode placeholder="Enter your postal code">
                 </div>
 
-                <div class="city">
+                <div class="city input-validation-error">
                     <p><strong>City</strong></p>
                     <input asp-for=AddressInfoForm.City placeholder="Enter your city">
                 </div>

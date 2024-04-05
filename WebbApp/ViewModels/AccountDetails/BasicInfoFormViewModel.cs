@@ -29,5 +29,5 @@ public class BasicInfoFormViewModel
     
     [DataType(DataType.MultilineText)]
     [Display(Name = "Bio (optional)", Prompt = "Add a short bio...")]
-    public string? Biography { get; set; }
+    public string? Bio { get; set; }
 }

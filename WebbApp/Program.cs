@@ -2,6 +2,7 @@
 
 using Infrastructure.Contexts;
 using Infrastructure.Entities;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,7 @@ builder.Services.AddDefaultIdentity<UserEntity>(x =>
     x.Password.RequiredLength = 6;
 }).AddEntityFrameworkStores<AppDbContext>();
 
+builder.Services.AddScoped<AddressManager>();
 
 var app = builder.Build();
 app.UseHsts();
